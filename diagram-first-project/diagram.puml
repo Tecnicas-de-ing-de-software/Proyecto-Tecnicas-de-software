@@ -1,0 +1,67 @@
+@startuml
+class Libro {
+    - nombre: String
+    - tipo: TipoLibro
+    - editorial: String
+    - año: int
+    - autores: List<Autor>
+    + getInfo(): String
+}
+
+enum TipoLibro {
+    Novela
+    Teatro
+    Poesia
+    Ensayo
+}
+
+class Autor {
+    - nombre: String
+    - nacionalidad: String
+    - fechaNacimiento: Date
+    + getInfo(): String
+}
+
+class CopiaLibro {
+    - identificador: String
+    - estado: EstadoCopia
+    - libro: Libro
+    + prestar(usuario: Usuario): boolean
+    + devolver(): boolean
+    + esPrestado(): boolean
+    + esVencido(): boolean
+}
+
+enum EstadoCopia {
+    EnBiblioteca
+    Prestado
+    Vencido
+    Reposicion
+}
+
+class Usuario {
+    - nombre: String
+    - prestamos: List<Prestamo>
+    + puedePrestar(): boolean
+    + getMultas(): float
+    + prestarCopia(copia: CopiaLibro): boolean
+    + devolverCopia(copia: CopiaLibro): boolean
+}
+
+class Prestamo {
+    - copia: CopiaLibro
+    - usuario: Usuario
+    - fechaPrestamo: Date
+    - fechaDevolucion: Date
+    - multa: float
+    + calcularMulta(): float
+    + esVencido(): boolean
+}
+
+Libro "1" -- "*" CopiaLibro
+Libro "1" -- "*" Autor
+CopiaLibro "*" -- "1" Prestamo
+Prestamo "*" -- "1" Usuario
+Usuario "1" -- "*" Prestamo
+
+@enduml
