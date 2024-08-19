@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+skinparam actorStyle awesome
+skinparam usecaseStyle roundedBox
+
+actor "Usuario" as user
+actor "Bibliotecario" as librarian
+actor "Sistema" as system
+
+rectangle "Sistema de Gestión de Biblioteca" {
+  usecase "Iniciar devolución" as UC1
+  usecase "Verificar estado del préstamo" as UC2
+  usecase "Calcular multas (si aplica)" as UC3
+  usecase "Registrar devolución" as UC4
+  usecase "Actualizar inventario" as UC5
+  usecase "Generar recibo" as UC6
+}
+
+user --> UC1
+UC1 ..> UC2 : <<include>>
+UC2 ..> UC3 : <<extend>>
+UC1 ..> UC4 : <<include>>
+UC4 ..> UC5 : <<include>>
+UC4 ..> UC6 : <<include>>
+librarian --> UC4
+system --> UC5
+@enduml

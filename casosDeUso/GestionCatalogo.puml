@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+skinparam actorStyle awesome
+skinparam usecaseStyle roundedBox
+
+actor "Bibliotecario" as librarian
+actor "Sistema" as system
+
+rectangle "Sistema de Gestión de Biblioteca" {
+  usecase "Agregar nuevo libro" as UC1
+  usecase "Actualizar información de libro" as UC2
+  usecase "Dar de baja libro" as UC3
+  usecase "Buscar libro" as UC4
+  usecase "Generar reportes de inventario" as UC5
+  usecase "Gestionar categorías" as UC6
+}
+
+librarian --> UC1
+librarian --> UC2
+librarian --> UC3
+librarian --> UC4
+librarian --> UC5
+librarian --> UC6
+UC1 ..> UC6 : <<include>>
+UC2 ..> UC4 : <<include>>
+UC3 ..> UC4 : <<include>>
+UC5 ..> UC4 : <<include>>
+system --> UC5
+@enduml
